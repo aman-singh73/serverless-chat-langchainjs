@@ -1,21 +1,76 @@
-# Compiled output
+# Node.js
 node_modules/
-dist/
-.tmp/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 
 # Logs
-logs
 *.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Deployment
-*.env
-.azure
+# Environment files
+.env
+.env.local
+.env.*.local
 
-# Misc
+# Build directories
+dist/
+build/
+out/
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
 .DS_Store
 Thumbs.db
-TODO
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Coverage directories
+coverage/
+*.lcov
+
+# Binaries
+*.exe
+*.out
+*.app
+
+# Other
+__pycache__/
+*.class
+*.jar
+*.war
+*.ear
+*.pdb
+*.idb
+*.obj
+*.o
+*.so
+*.dSYM/
+!package.json
+!package-lock.json
+!requirements.txt
+!*.yml
+
+# InfrIQa generated manifest
+.infriqa/
+
+
+# OpenTofu / Terraform local files
+tofu/.terraform/
+tofu/*.tfstate
+tofu/*.tfstate.*
+tofu/tofu.tfvars
+tofu/terraform.tfvars
+tofu/crash.log

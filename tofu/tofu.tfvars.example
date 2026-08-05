@@ -1,0 +1,11 @@
+# Terraform variable values
+# Environment: dev
+
+environment = "dev"
+
+location = "centralus"
+
+consistency_policy = {consistency_level = "Session", max_interval_in_seconds = 5, max_staleness_prefix = 100}
+geo_location = [{failover_priority = 0, location = "centralus"}]
+serverless_api_node_version = "20-lts"
+subscription_id = "your-95ccb98fd3c6"
