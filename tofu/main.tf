@@ -170,3 +170,5 @@ module "serverless_api_app" {
   service_plan_id = module.shared_plan.id
   tags            = local.common_tags
 }
+
+# [CHANGE-INTEL SMOKE TEST] temporary comment — safe to delete; no infra impact
