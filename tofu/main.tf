@@ -170,3 +170,58 @@ module "serverless_api_app" {
   service_plan_id = module.shared_plan.id
   tags            = local.common_tags
 }
+
+# ========================================
+# TEMPORARY — Change Intelligence smoke test (DO NOT MERGE / APPLY)
+# Adds a Linux VM declaration so PR risk sees a compute IaC change.
+# count = 0 → even if applied accidentally, no Azure VM is created.
+# Delete this whole block after the UI test.
+# ========================================
+resource "azurerm_network_interface" "change_intel_smoke_nic" {
+  count               = 0
+  name                = "change-intel-smoke-nic"
+  location            = var.location
+  resource_group_name = module.main_rg.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/placeholder/providers/Microsoft.Network/virtualNetworks/placeholder/subnets/default"
+    private_ip_address_allocation = "Dynamic"
+  }
+
+  tags = local.common_tags
+}
+
+resource "azurerm_linux_virtual_machine" "change_intel_smoke_vm" {
+  count               = 0
+  name                = "change-intel-smoke-vm"
+  location            = var.location
+  resource_group_name = module.main_rg.name
+  size                = "Standard_B1s"
+  admin_username      = "azureuser"
+
+  network_interface_ids = [
+    azurerm_network_interface.change_intel_smoke_nic[0].id,
+  ]
+
+  admin_ssh_key {
+    username   = "azureuser"
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC change-intel-smoke-placeholder"
+  }
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+  }
+
+  tags = merge(local.common_tags, {
+    purpose = "change-intel-smoke-temporary"
+  })
+}
