@@ -10,10 +10,10 @@ resource "azurerm_linux_web_app" "infriqa_demo_insecure_app" {
   service_plan_id     = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-infriqa-demo/providers/Microsoft.Web/serverFarms/plan-demo"
 
   # RISK: unrestricted FTPS
-  ftps_state = "All"
+  ftps_state = "Disabled"
 
   # RISK: public network access enabled
-  public_network_access_enabled = true
+  public_network_access_enabled = false
 
   site_config {
     always_on = true
