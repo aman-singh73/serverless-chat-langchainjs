@@ -170,3 +170,29 @@ module "serverless_api_app" {
   service_plan_id = module.shared_plan.id
   tags            = local.common_tags
 }
+
+# ========================================
+# Phase: 5 Messaging
+# ========================================
+
+# Module: service_bus_namespace (azurerm_servicebus_namespace)
+resource "azurerm_servicebus_namespace" "orders_namespace" {
+  name                = "test04-dev-orders-namespace"
+  location            = var.location
+  resource_group_name = module.main_rg.name
+  sku                 = "Standard"
+  capacity            = 1
+  tags                = local.common_tags
+}
+
+# Module: service_bus_queue (azurerm_servicebus_queue)
+resource "azurerm_servicebus_queue" "orders_queue" {
+  name                = "orders"
+  resource_group_name = module.main_rg.name
+  namespace_name      = azurerm_servicebus_namespace.orders_namespace.name
+  max_size_bytes     = 104857600
+  requires_duplicate_detection = false
+  default_message_time_to_live = "PT1H"
+  dead_lettering_on_message_expiration = true
+  tags                = local.common_tags
+}
