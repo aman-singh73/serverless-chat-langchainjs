@@ -170,3 +170,17 @@ module "serverless_api_app" {
   service_plan_id = module.shared_plan.id
   tags            = local.common_tags
 }
+
+# ========================================
+# Infriqa code-fix — whitelisted golden modules
+# ========================================
+
+# Module: app_redis_cache (azurerm_redis_cache)
+module "app_redis_cache" {
+  source = "./modules/azure-redis-cache"
+
+  name = "test04-dev-redis"
+  resource_group_name = module.main_rg.name
+  location = var.location
+  tags = local.common_tags
+}
