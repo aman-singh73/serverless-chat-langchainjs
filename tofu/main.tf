@@ -170,3 +170,17 @@ module "serverless_api_app" {
   service_plan_id = module.shared_plan.id
   tags            = local.common_tags
 }
+
+# ========================================
+# Infriqa code-fix — whitelisted golden modules
+# ========================================
+
+# Module: app_storage_account (azurerm_storage_account)
+module "app_storage_account" {
+  source = "./modules/azure-storage-account"
+
+  name = "test04devstore"
+  resource_group_name = module.main_rg.name
+  location = var.location
+  tags = local.common_tags
+}
