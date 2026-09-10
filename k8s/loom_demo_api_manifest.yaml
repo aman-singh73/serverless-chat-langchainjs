@@ -1,0 +1,7 @@
+# Loom demo — insecure app DB URL
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: core-financial-api
+data:
+  DATABASE_URL: "postgresql://app:secret@aurora.internal:5432/core?sslmode=prefer"
